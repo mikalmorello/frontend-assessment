@@ -1,0 +1,23 @@
+{
+  "name": "frontend-assesment",
+  "version": "1.0.0",
+  "description": "Homework for frontend interviews",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evertrue/frontend-assesment.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/evertrue/frontend-assesment/issues"
+  },
+  "homepage": "https://github.com/evertrue/frontend-assesment#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.3"
+  }
+}
