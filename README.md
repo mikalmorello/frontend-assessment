@@ -1,7 +1,7 @@
 # Frontend Assessment
-We look more at code quality & data manipulation versus design details. 
+This is our Frontend Engineering candidate assessment, which is a representation of the types of challenges we deal with daily. We have created a scaffold of the project here in React since it's the framework we use, but you may use any framework that you prefer.
 
-Use HTML, CSS and JavaScript these tasks. You can use any JS framework or CSS library or preprocessor.
+Please send us the project via email with any instructions for set up. Please note, we look more at code quality & data manipulation rather than design details. 
 
 ## Task
 Use the file `schema.json` to create an interactive page. 
