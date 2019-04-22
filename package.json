@@ -1,11 +1,11 @@
 {
-  "name": "frontend-assesment",
+  "name": "frontend-assessment",
   "version": "1.0.0",
   "description": "Homework for frontend interviews",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel src/index.html"
+    "start": "parcel src/index.html --no-cache",
+    "build": "parcel build src/index.html"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,9 @@
   "homepage": "https://github.com/evertrue/frontend-assesment#readme",
   "devDependencies": {
     "parcel-bundler": "^1.12.3"
+  },
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   }
 }
