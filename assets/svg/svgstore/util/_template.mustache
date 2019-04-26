@@ -1,0 +1,26 @@
+/* SVG STORE */
+/* automatically generated from svgstore-sass task template */
+
+// GENERAL STYLES
+
+.svgstore {
+  display: block;
+  height: 0;
+  pointer-events: none;
+  position: relative;
+  width: 100%;
+  //.svgstore svg
+  svg {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}
+{{ #items }}
+
+.svgstore--{{ name }} {
+  padding-bottom: {{ height }} / {{ width }} * 100%;
+}
+{{ /items }}
