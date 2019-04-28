@@ -1,0 +1,27 @@
+/* SIDEBAR REGION */
+/*
+- SIDEBAR
+
+*/
+
+// SIDEBAR
+
+.sidebar { 
+  background: $evertrue-gray;
+  border-right: 6px solid $gray-12;
+  grid-area: sidebar;
+  min-height: 100vh;
+  &__container {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.5rem 1rem 1rem;
+  }
+  &__header {
+    margin-bottom: 1.5rem;
+  }
+  &__logo {
+    margin: 0 auto;
+    max-width: 100%;
+    width: 12rem;
+  }
+} 

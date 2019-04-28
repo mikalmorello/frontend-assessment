@@ -1,0 +1,28 @@
+/* MAIN REGION */
+/*
+- MAIN
+
+*/
+
+// MAIN
+
+.main { 
+  background: $gray-5;
+  min-height: 100vh;
+  grid-area: main;
+  &__container {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.5rem 1rem 3rem;
+  }
+  &__header {
+    margin-bottom: 2rem;
+  }
+  &__title {
+    color: $evertrue-blue-green;
+    font-weight: 500;
+    margin: .5rem 0 .75rem;
+  }
+  &__description {
+  }
+}

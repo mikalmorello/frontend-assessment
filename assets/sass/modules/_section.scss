@@ -1,0 +1,67 @@
+/* SECTION */
+/*
+- SECTION
+- MAIN SECTION
+*/
+
+// SECTION
+
+.section {
+  display: flex;
+  flex-direction: column;
+}
+
+// SECTION
+
+.section--main {
+  @include section;
+  background: $white;
+  border: 2px solid $gray-10;
+  border-radius: 4px;
+  padding: 2rem;
+  .section {
+    &__header {
+      margin-bottom: 1.5rem;
+    }
+    &__title {
+      border-bottom: 1px solid $gray-10;
+      color: $evertrue-blue-green;
+      display: inline-block;
+      font-weight: 500;
+      padding-bottom: .75rem;
+    }
+    &__description {
+    }
+    &__main {
+    }
+    &__data-list {
+      @include unstyled-list;
+      border: 2px solid $gray-10;
+      border-radius: 4px;
+    }
+    &__data-item {
+      border-top: 2px solid $gray-10;
+      display: flex;
+      &:first-child {
+        border-top: none;
+      }
+    }
+    &__data {
+      @include padding-standard;
+      background: $evertrue-light-blue;
+      border-right: 2px solid $gray-10;
+      width: 33.3%;
+    }
+    &__data-title {
+      color: $evertrue-blue-green;
+      font-weight: 500;
+      margin: 0;
+    }
+    &__data-description {
+      @include padding-standard;
+      width: 66.6%;
+    }
+  }
+}
+
+

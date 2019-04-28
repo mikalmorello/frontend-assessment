@@ -9,7 +9,20 @@
 
 $black: #000;
 $white: #FFF;
-$gray: #D9D9D9;
-
+$gray-5: darken( $white, 5% );
+$gray-10: darken( $white, 10% );
+$gray-12: darken( $white, 12% );
+$gray-15: darken( $white, 15% );
+$gray-20: darken( $white, 20% );
+$gray-25: darken( $white, 25% );
+$gray-30: darken( $white, 30% );
+$gray-80: darken( $white, 80% );
 
 // THEME COLORS
+
+$evertrue-light-gray: #ECECEC;
+$evertrue-gray: #E8E8E8;
+$evertrue-blue-green: #738F99;
+$evertrue-blue: #659CB9;
+$evertrue-light-blue: #F3F6F7;
+

@@ -2,7 +2,7 @@ name: evertrue-assessment
 recipe: lamp
 services:
   node:
-    type: node:8
+    type: node:6.10
     globals:
       gulp-cli: "latest"
 tooling:

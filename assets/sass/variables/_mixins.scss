@@ -1,6 +1,10 @@
 /* MIXINS */
 /*
 - CLEAR
+- LISTS
+- PADDING
+- TYPOGRAPHY
+- SECTION
 */
 
 // CLEAR
@@ -21,4 +25,36 @@
   &{
     *zoom: 1;
   }
+}
+
+
+// SECTIONS
+
+@mixin section {
+  margin-bottom: 2rem;
+}
+
+// LISTS
+
+@mixin unstyled-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+
+// PADDING 
+
+@mixin padding-standard {
+  padding: .5rem 1rem;
+}
+
+
+// TYPOGRAPHY
+
+@mixin section-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0;
+  text-transform: uppercase;
 }
