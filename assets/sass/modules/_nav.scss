@@ -16,6 +16,7 @@
 
 .nav--sidebar {
   @include section;
+  text-transform: capitalize;
   .nav {
     &__title {
       @include padding-standard;
@@ -52,9 +53,9 @@
     } 
     &__link-sections {
       @include unstyled-list;
-      display: none;
+      //display: none;
       &--active {
-        display: block; 
+        //display: block; 
       }
     } 
     &__link-section-item {
