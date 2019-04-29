@@ -30,8 +30,6 @@
       font-weight: 500;
       padding-bottom: .75rem;
     }
-    &__description {
-    }
     &__main {
     }
     &__data-list {
@@ -40,8 +38,10 @@
       border-radius: 4px;
     }
     &__data-item {
+      align-items: center;
       border-top: 2px solid $gray-10;
       display: flex;
+      font-weight: 500;
       &:first-child {
         border-top: none;
       }
@@ -60,6 +60,9 @@
     &__data-description {
       @include padding-standard;
       width: 66.6%;
+      &--name {
+        color: $evertrue-purple;
+      }
     }
   }
 }

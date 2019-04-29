@@ -69,25 +69,31 @@
     return flatNav;
   }
 
-  // Create a Menu for Categories
-  function buildNestedNav(categoryNested){
-    // Loop through category items
-    for(let i = 0; i < categoryNested.length; i++) {
-      let profileField = categoryNested[i],
-          profileSubFields = [],
-          nestedSubNav = '';
-      
+
+  // Build Main Content Section
+  function profileSubFieldType(profileField) {
+      var profileSubFields = [];
       // Determine if properties are stored in containing object or not
       if(profileField.containing_object){
         profileSubFields = profileField.containing_object.properties;
       } else if (profileField.properties){
         profileSubFields = profileField.properties;
       }
+    return profileSubFields;
+  }
+
+
+  // Create a Menu for Categories
+  function buildNestedNav(categoryNested){
+    // Loop through category items
+    for(let i = 0; i < categoryNested.length; i++) {
+      let profileField = categoryNested[i],
+          nestedSubNav = '',
+          profileSubFields = profileSubFieldType(profileField);
       
       // loop through category subitems
       for(let i = 0; i < profileSubFields.length; i++) {
         let profileSubField = profileSubFields[i];
-        //console.log(profileSubField);
         nestedSubNav += `
           <li class="nav__link-section-item">
             <a href="#${profileSubField.id}" class="nav__link-section">${profileSubField.name}</a>
@@ -119,78 +125,46 @@
   }
 
   // Build Main Content Section
-  function buildMainContentSection(fieldTitle, fieldDescription) {
+  function buildMainContentSection(fieldClass, fieldTitle, fieldDescription) {
     let mainContentSection = '';
     mainContentSection = `
       <li class="section__data-item">
         <div class="section__data">
           <h4 class="section__data-title">${fieldTitle}</h4>
         </div>
-        <div class="section__data-description">
+        <div class="section__data-description section__data-description--${fieldClass}">
           ${fieldDescription}
         </div>
       </li>`;
+    return mainContentSection;
   }
 
   // Build Main Content
 
   function buildMainContent(categoryNested, link) {
-    console.log(link.id);
-    console.log('content built');
     // If category nested
     for(let i = 0; i < categoryNested.length; i++) {
       let profileField = categoryNested[i],
+          profileSubFields = profileSubFieldType(profileField),
           mainContentSections = '';
       
       if(profileField.id == link.id){
-        console.log(profileField.name);
         // set main title
         mainTitle.innerHTML = `${profileField.name}`;
-        
-        // Determine if properties are stored in containing object or not
-        if(profileField.containing_object){
-          profileSubFields = profileField.containing_object.properties;
-        } else if (profileField.properties){
-          profileSubFields = profileField.properties;
-        }
         
         // set content
         for(let i = 0; i < profileSubFields.length; i++) {
           let profileSubField = profileSubFields[i];
-          //console.log(profileSubField);
+          
           mainContentSections += `
           <section class="section section--main">
             <div class="section__header">
               <h3 class="section__title">${profileSubField.name}</h3>
-              <div class="section__description">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at bibendum diam. Vivamus dignissim, ligula ac eleifend sodales.
-              </div>
             </div>
             <ul class="section__data-list">
-              <li class="section__data-item">
-                <div class="section__data">
-                  <h4 class="section__data-title">Type</h4>
-                </div>
-                <div class="section__data-description">
-                  ${profileSubField.data_type}
-                </div>
-              </li>
-              <li class="section__data-item">
-                <div class="section__data">
-                  <h4 class="section__data-title">Usage</h4>
-                </div>
-                <div class="section__data-description">
-                  ${profileSubField.app_keys}
-                </div>
-              </li>
-              <li class="section__data-item">
-                <div class="section__data">
-                  <h4 class="section__data-title">Evertrue Field Name</h4>
-                </div>
-                <div class="section__data-description">
-                  ${profileSubField.name}
-                </div>
-              </li>
+              ${buildMainContentSection('data-type', 'Type', profileSubField.data_type)}
+              ${buildMainContentSection('app-keys', 'Usage', profileSubField.app_keys)}
+              ${buildMainContentSection('name', 'Evertrue Field Name', profileSubField.name)}
             </ul>
           </section>
           `;
@@ -215,7 +189,6 @@
     let sidebarNavLinks = document.getElementsByClassName('nav__link')
     Array.prototype.forEach.call(sidebarNavLinks, function(link) {
       link.addEventListener('click', function() {
-        console.log('link clicked');
         buildMainContent(categoryNested, link);
       });
     });
