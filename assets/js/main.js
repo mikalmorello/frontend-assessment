@@ -53,7 +53,20 @@
     buildFlatNav(categoryFlat);
     buildNestedNav(categoryNested);
     buildSidebarNav(flatNav, nestedNav);
-    navLinkClick(categoryNested);
+    navLinkClick(categoryFlat, categoryNested);
+  }
+
+  // Determine profile subfield type
+  function profileSubFieldType(profileField) {
+      var profileSubFields = [];
+      // Determine if properties are stored in containing object or not
+      if(profileField.containing_object){
+        profileSubFields = profileField.containing_object.properties;
+      } else if (profileField.properties){
+        profileSubFields = profileField.properties;
+      } 
+    
+    return profileSubFields;
   }
 
   // Create a Submenu for General Category Items
@@ -68,20 +81,6 @@
     }
     return flatNav;
   }
-
-
-  // Build Main Content Section
-  function profileSubFieldType(profileField) {
-      var profileSubFields = [];
-      // Determine if properties are stored in containing object or not
-      if(profileField.containing_object){
-        profileSubFields = profileField.containing_object.properties;
-      } else if (profileField.properties){
-        profileSubFields = profileField.properties;
-      }
-    return profileSubFields;
-  }
-
 
   // Create a Menu for Categories
   function buildNestedNav(categoryNested){
@@ -102,7 +101,7 @@
       }
       nestedNav += `
         <li class="nav__link-item">
-          <a id="${profileField.id}" class="nav__link">${profileField.name}</a>
+          <a id="${profileField.name}" class="nav__link">${profileField.name}</a>
           <ul class="nav__link-sections">
             ${nestedSubNav}
           </ul>
@@ -139,16 +138,53 @@
     return mainContentSection;
   }
 
-  // Build Main Content
 
-  function buildMainContent(categoryNested, link) {
-    // If category nested
-    for(let i = 0; i < categoryNested.length; i++) {
-      let profileField = categoryNested[i],
+
+
+// Build Main Content - Flat
+
+  function buildMainContentFlat(category, link) {
+    let mainContentSections = '';
+    
+    mainTitle.innerHTML = `${link.id}`;
+    
+    // Loop through category elements
+    for(let i = 0; i < category.length; i++) {
+      let profileField = category[i];
+    
+      mainContentSections += `
+      <section class="section section--main">
+        <div class="section__header">
+          <h3 class="section__title">${profileField.name}</h3>
+        </div>
+        <ul class="section__data-list">
+          ${buildMainContentSection('data-type', 'Type', profileField.data_type)}
+          ${buildMainContentSection('app-keys', 'Usage', profileField.app_keys)}
+          ${buildMainContentSection('name', 'Evertrue Field Name', profileField.name)}
+        </ul>
+      </section>
+      `;
+    } 
+
+    mainContent.innerHTML = `
+      ${mainContentSections}
+    `;
+    
+  }
+
+
+
+  // Build Main Content - Nested
+
+  function buildMainContent(category, link) {
+
+    // Loop through category elements
+    for(let i = 0; i < category.length; i++) {
+      let profileField = category[i],
           profileSubFields = profileSubFieldType(profileField),
           mainContentSections = '';
       
-      if(profileField.id == link.id){
+      if(profileField.name == link.id){
         // set main title
         mainTitle.innerHTML = `${profileField.name}`;
         
@@ -176,7 +212,6 @@
         
       }
       
-      
     }
   }
 
@@ -185,11 +220,20 @@
 // EVENT
 
   // Sidebar Navigation Click
-  function navLinkClick(categoryNested) {
+  function navLinkClick(categoryFlat, categoryNested) {
     let sidebarNavLinks = document.getElementsByClassName('nav__link')
     Array.prototype.forEach.call(sidebarNavLinks, function(link) {
       link.addEventListener('click', function() {
-        buildMainContent(categoryNested, link);
+        if(link.id == 'general') {
+          console.log('general');
+          let category = categoryFlat;
+          buildMainContentFlat(category, link);
+        } else {
+          console.log('other');
+          let category = categoryNested;
+          buildMainContent(category, link);
+        }
+        
       });
     });
   }
