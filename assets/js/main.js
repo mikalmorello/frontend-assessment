@@ -215,7 +215,19 @@
     }
   }
 
-
+  // Manage link state
+  function activeLink(link){
+    let parent = link.parentNode,
+        parentSiblings = document.getElementsByClassName('nav__link-item');
+    
+    // Remove active link class from siblings
+    Array.prototype.forEach.call(parentSiblings, function(element) {
+      element.classList.remove(`nav__link-item--active`);
+    });
+    
+    // Add active link class
+    parent.classList.add('nav__link-item--active');
+  }
     
 // EVENT
 
@@ -225,14 +237,14 @@
     Array.prototype.forEach.call(sidebarNavLinks, function(link) {
       link.addEventListener('click', function() {
         if(link.id == 'general') {
-          console.log('general');
           let category = categoryFlat;
           buildMainContentFlat(category, link);
         } else {
-          console.log('other');
           let category = categoryNested;
           buildMainContent(category, link);
         }
+        // Activate Link
+        activeLink(link);
         
       });
     });

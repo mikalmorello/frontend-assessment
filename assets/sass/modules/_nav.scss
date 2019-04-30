@@ -47,16 +47,10 @@
       color: $evertrue-blue;
       font-weight: 600;
       text-decoration: none;
-      &--active {
-        color: $gray-80;
-      }
     } 
     &__link-sections {
       @include unstyled-list;
-      //display: none;
-      &--active {
-        //display: block; 
-      }
+      display: none;
     } 
     &__link-section-item {
       border-left: 3px solid $evertrue-blue-green;
@@ -75,3 +69,18 @@
     } 
   }
 } 
+
+
+// SIDEBAR NAVIGATION STATES
+
+// Active Link Section
+.nav--sidebar {
+  .nav__link-item--active {
+    .nav__link {
+      color: $gray-80;
+    }
+    .nav__link-sections {
+      display: block; 
+    }
+  }
+}
