@@ -2,10 +2,10 @@
 // VARIABLES
 
   const xhr = new XMLHttpRequest(),
-  baseUrl = '../../schema.json',
-  sidebarNavLinks = document.getElementById('sidebarNavLinks'),
-  mainTitle = document.getElementById('mainTitle'),
-  mainContent = document.getElementById('mainContent');
+        baseUrl = '../../schema.json',
+        sidebarNavLinks = document.getElementById('sidebarNavLinks'),
+        mainTitle = document.getElementById('mainTitle'),
+        mainContent = document.getElementById('mainContent');
 
   let categoryFlat = [],
       categoryNested = [],
@@ -52,6 +52,7 @@
     buildFlatNav(categoryFlat);
     buildNestedNav(categoryNested);
     buildSidebarNav(flatNav, nestedNav);
+    defaultMainContent(categoryFlat);
     navLinkClick(categoryFlat, categoryNested);
   }
 
@@ -242,9 +243,16 @@
         return displayName = 'evertrue donor index';
         break;
       default:
-        console.log('default case');
         return displayName = fieldName.replace(/_/g, ' ');
     }
+  }
+
+  function defaultMainContent(categoryFlat) {
+    let category = categoryFlat,
+        link = document.getElementById('general');
+    buildMainContentFlat(categoryFlat, link);
+    // Activate Link
+    activeLink(link);
   }
   
 
@@ -255,7 +263,7 @@
     let sidebarNavLinks = document.getElementsByClassName('nav__link')
     Array.prototype.forEach.call(sidebarNavLinks, function(link) {
       link.addEventListener('click', function() {
-        if(link.id == 'general') {
+        if (link.id == 'general') {
           let category = categoryFlat;
           buildMainContentFlat(category, link);
         } else {
@@ -270,5 +278,6 @@
 
   // Default calls
   callThatAPI();
+  
 
 
