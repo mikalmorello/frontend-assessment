@@ -37,7 +37,6 @@
 
 
   // Load Results
-
   function loadProfile(response){
     let profile = response;
     for(let i = 0; i < profile.length; i++) { 
@@ -73,10 +72,12 @@
   function buildFlatNav(categoryFlat){
     // Loop through category items
     for(let i = 0; i < categoryFlat.length; i++) {
-      let profileField = categoryFlat[i];
+      let profileField = categoryFlat[i],
+          displayName = addReadableNames(profileField.name);
+      
       flatNav += `
         <li class="nav__link-section-item">
-          <a href="#${profileField.id}" class="nav__link-section" >${profileField.name}</a>
+          <a href="#${profileField.id}" class="nav__link-section" >${displayName}</a>
         </li>`;
     }
     return flatNav;
@@ -88,20 +89,22 @@
     for(let i = 0; i < categoryNested.length; i++) {
       let profileField = categoryNested[i],
           nestedSubNav = '',
-          profileSubFields = profileSubFieldType(profileField);
+          profileSubFields = profileSubFieldType(profileField),
+          parentDisplayName = addReadableNames(profileField.name);
       
       // loop through category subitems
       for(let i = 0; i < profileSubFields.length; i++) {
-        let profileSubField = profileSubFields[i];
+        let profileSubField = profileSubFields[i],
+            displayName = addReadableNames(profileSubField.name);
         nestedSubNav += `
           <li class="nav__link-section-item">
-            <a href="#${profileSubField.id}" class="nav__link-section">${profileSubField.name}</a>
+            <a href="#${profileSubField.id}" class="nav__link-section">${displayName}</a>
           </li>
         `
       }
       nestedNav += `
         <li class="nav__link-item">
-          <a id="${profileField.name}" class="nav__link">${profileField.name}</a>
+          <a id="${profileField.name}" class="nav__link">${parentDisplayName}</a>
           <ul class="nav__link-sections">
             ${nestedSubNav}
           </ul>
@@ -125,11 +128,12 @@
 
   // Build Main Content Section
   function buildMainContentSection(fieldClass, fieldTitle, fieldDescription) {
-    let mainContentSection = '';
+    let mainContentSection = '',
+        displayName = addReadableNames(fieldTitle);
     mainContentSection = `
       <li class="section__data-item">
         <div class="section__data">
-          <h4 class="section__data-title">${fieldTitle}</h4>
+          <h4 class="section__data-title">${displayName}</h4>
         </div>
         <div class="section__data-description section__data-description--${fieldClass}">
           ${fieldDescription}
@@ -139,10 +143,7 @@
   }
 
 
-
-
-// Build Main Content - Flat
-
+  // Build Main Content - Flat
   function buildMainContentFlat(category, link) {
     let mainContentSections = '';
     
@@ -150,12 +151,13 @@
     
     // Loop through category elements
     for(let i = 0; i < category.length; i++) {
-      let profileField = category[i];
-    
+      let profileField = category[i],
+          displayName = addReadableNames(profileField.name);
+      
       mainContentSections += `
       <section class="section section--main">
         <div class="section__header">
-          <h3 class="section__title">${profileField.name}</h3>
+          <h3 class="section__title">${displayName}</h3>
         </div>
         <ul class="section__data-list">
           ${buildMainContentSection('data-type', 'Type', profileField.data_type)}
@@ -173,9 +175,7 @@
   }
 
 
-
   // Build Main Content - Nested
-
   function buildMainContent(category, link) {
 
     // Loop through category elements
@@ -190,12 +190,13 @@
         
         // set content
         for(let i = 0; i < profileSubFields.length; i++) {
-          let profileSubField = profileSubFields[i];
+          let profileSubField = profileSubFields[i],
+              displayName = addReadableNames(profileSubField.name);
           
           mainContentSections += `
           <section class="section section--main">
             <div class="section__header">
-              <h3 class="section__title">${profileSubField.name}</h3>
+              <h3 class="section__title">${displayName}</h3>
             </div>
             <ul class="section__data-list">
               ${buildMainContentSection('data-type', 'Type', profileSubField.data_type)}
@@ -215,6 +216,7 @@
     }
   }
 
+
   // Manage link state
   function activeLink(link){
     let parent = link.parentNode,
@@ -229,6 +231,23 @@
     parent.classList.add('nav__link-item--active');
   }
     
+  // Add readable names to fields
+  function addReadableNames(fieldName) {
+    let displayName = '';
+    switch(fieldName) {
+      case 'name_first':
+        return displayName = 'first name';
+        break;
+      case 'et_donor_index':
+        return displayName = 'evertrue donor index';
+        break;
+      default:
+        console.log('default case');
+        return displayName = fieldName.replace(/_/g, ' ');
+    }
+  }
+  
+
 // EVENT
 
   // Sidebar Navigation Click
@@ -245,7 +264,6 @@
         }
         // Activate Link
         activeLink(link);
-        
       });
     });
   }
