@@ -144,79 +144,65 @@
   }
 
 
-  // Build Main Content - Flat
-  function buildMainContentFlat(category, link) {
-    let mainContentSections = '';
-    
-    mainTitle.innerHTML = `${link.id}`;
-    
-    // Loop through category elements
-    for(let i = 0; i < category.length; i++) {
-      let profileField = category[i],
-          displayName = addReadableNames(profileField.name);
-      
-      mainContentSections += `
-      <section id="${profileField.id}" class="section section--main">
-        <div class="section__header">
-          <h3 class="section__title">${displayName}</h3>
-        </div>
-        <ul class="section__data-list">
-          ${buildMainContentSection('data-type', 'Type', profileField.data_type)}
-          ${buildMainContentSection('app-keys', 'Usage', profileField.app_keys)}
-          ${buildMainContentSection('name', 'Evertrue Field Name', profileField.name)}
-        </ul>
-      </section>
-      `;
-    } 
-
-    mainContent.innerHTML = `
-      ${mainContentSections}
-    `;
-    
-  }
-
-
   // Build Main Content - Nested
   function buildMainContent(category, link) {
 
-    // Loop through category elements
-    for(let i = 0; i < category.length; i++) {
-      let profileField = category[i],
-          profileSubFields = profileSubFieldType(profileField),
-          mainContentSections = '';
-      
-      if(profileField.name == link.id){
-        // set main title
-        mainTitle.innerHTML = `${profileField.name}`;
+    if (link.id == 'general') {
+      mainTitle.innerHTML = `${link.id}`;
+
+      let mainContentSections = mainContentRender(category);
+
+      mainContent.innerHTML = `
+        ${mainContentSections}
+      `;
+    } else {
+      // If nested content 
+      // Loop through category elements
+      for(let i = 0; i < category.length; i++) {
+        let profileField = category[i],
+            profileSubFields = profileSubFieldType(profileField);
         
-        // set content
-        for(let i = 0; i < profileSubFields.length; i++) {
-          let profileSubField = profileSubFields[i],
-              displayName = addReadableNames(profileSubField.name);
+        if(profileField.name == link.id){
+          let mainContentSections = mainContentRender(profileSubFields);
+          
+          // set main title
+          mainTitle.innerHTML = `${profileField.name}`;
+          
+          // set main content
+          mainContent.innerHTML = `
+            ${mainContentSections}
+          `;
+        }
+        
+      }
+    }
+  }
+
+
+  // Main Content
+
+  function mainContentRender(fields){
+        let mainContentSections = '';
+    
+        for(let i = 0; i < fields.length; i++) {
+          let profileField = fields[i],
+              displayName = addReadableNames(profileField.name);
           
           mainContentSections += `
-          <section id="${profileSubField.id}" class="section section--main">
+          <section id="${profileField.id}" class="section section--main">
             <div class="section__header">
               <h3 class="section__title">${displayName}</h3>
             </div>
             <ul class="section__data-list">
-              ${buildMainContentSection('data-type', 'Type', profileSubField.data_type)}
-              ${buildMainContentSection('app-keys', 'Usage', profileSubField.app_keys)}
-              ${buildMainContentSection('name', 'Evertrue Field Name', profileSubField.name)}
+              ${buildMainContentSection('data-type', 'Type', profileField.data_type)}
+              ${buildMainContentSection('app-keys', 'Usage', profileField.app_keys)}
+              ${buildMainContentSection('name', 'Evertrue Field Name', profileField.name)}
             </ul>
           </section>
           `;
         } 
-        
-        mainContent.innerHTML = `
-          ${mainContentSections}
-        `;
-        
-      }
-      
-    }
+    return mainContentSections;
   }
-
 
   // Manage link state
   function activeLink(link){
@@ -250,7 +236,7 @@
   function defaultMainContent(categoryFlat) {
     let category = categoryFlat,
         link = document.getElementById('general');
-    buildMainContentFlat(categoryFlat, link);
+    buildMainContent(categoryFlat, link);
     // Activate Link
     activeLink(link);
   }
@@ -263,13 +249,13 @@
     let sidebarNavLinks = document.getElementsByClassName('nav__link')
     Array.prototype.forEach.call(sidebarNavLinks, function(link) {
       link.addEventListener('click', function() {
+        let category = '';
         if (link.id == 'general') {
-          let category = categoryFlat;
-          buildMainContentFlat(category, link);
+          category = categoryFlat;
         } else {
-          let category = categoryNested;
-          buildMainContent(category, link);
+          category = categoryNested;
         }
+        buildMainContent(category, link);
         // Activate Link
         activeLink(link);
       });
