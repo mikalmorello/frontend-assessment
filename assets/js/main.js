@@ -54,6 +54,7 @@
     buildSidebarNav(flatNav, nestedNav);
     defaultMainContent(categoryFlat);
     navLinkClick(categoryFlat, categoryNested);
+    navLinkSectionClick();
   }
 
   // Determine profile subfield type
@@ -105,7 +106,7 @@
       }
       nestedNav += `
         <li class="nav__link-item">
-          <a id="${profileField.name}" class="nav__link">${parentDisplayName}</a>
+          <a href="#mainTitle" id="${profileField.name}" class="nav__link">${parentDisplayName}</a>
           <ul class="nav__link-sections">
             ${nestedSubNav}
           </ul>
@@ -118,7 +119,7 @@
   function buildSidebarNav(flatNav, nestedNav){
     sidebarNavLinks.innerHTML = `
       <li class="nav__link-item">
-        <a id="general" class="nav__link">general Info</a>
+        <a href="#mainTitle" id="general" class="nav__link">general Info</a>
         <ul class="nav__link-sections">
           ${flatNav}
         </ul>
@@ -207,16 +208,26 @@
   // Manage link state
   function activeLink(link){
     let parent = link.parentNode,
-        parentSiblings = document.getElementsByClassName('nav__link-item');
-    
+        parentSiblings = getSiblings(parent);
+
     // Remove active link class from siblings
     Array.prototype.forEach.call(parentSiblings, function(element) {
-      element.classList.remove(`nav__link-item--active`);
+      element.classList.remove('active');
     });
     
     // Add active link class
-    parent.classList.add('nav__link-item--active');
+    parent.classList.add('active');
+    
+    // If category link remove all child active classes
+    if (link.classList.contains('nav__link')) {
+      let sectionLinks = document.getElementsByClassName('nav__link-section-item');
+      Array.prototype.forEach.call(sectionLinks, function(element) {
+        element.classList.remove('active');
+      });
+      removeHash();
+    }
   }
+
     
   // Add readable names to fields
   function addReadableNames(fieldName) {
@@ -240,11 +251,29 @@
     // Activate Link
     activeLink(link);
   }
+
+  var getSiblings = function (elem) {
+    // Setup siblings array and get the first sibling
+    var siblings = [];
+    var sibling = elem.parentNode.firstChild;
+    // Loop through each sibling and push to the array
+    while (sibling) {
+      if (sibling.nodeType === 1 && sibling !== elem) {
+        siblings.push(sibling);
+      }
+      sibling = sibling.nextSibling
+    }
+    return siblings;
+  };
+
+  function removeHash () { 
+    history.pushState("", document.title, window.location.pathname + window.location.search);
+  }
   
 
 // EVENT
 
-  // Sidebar Navigation Click
+  // Sidebar Navigation Category Click
   function navLinkClick(categoryFlat, categoryNested) {
     let sidebarNavLinks = document.getElementsByClassName('nav__link')
     Array.prototype.forEach.call(sidebarNavLinks, function(link) {
@@ -261,6 +290,17 @@
       });
     });
   }
+
+  // Sidebar Navigation Section Click
+  function navLinkSectionClick() {
+      let sidebarNavLinks = document.getElementsByClassName('nav__link-section')
+      Array.prototype.forEach.call(sidebarNavLinks, function(link) {
+        link.addEventListener('click', function() {
+          // Activate Section Link
+          activeLink(link);
+        });
+      });
+    }
 
   // Default calls
   callThatAPI();

@@ -56,16 +56,10 @@
       border-left: 3px solid $evertrue-blue-green;
       margin-bottom: 0.125rem;
       padding: .5rem;
-      &--active {
-        border-color: purple;
-      }
     }
     &__link-section {
       color: $evertrue-blue-green;
       text-decoration: none;
-      &--active {
-        color: purple;
-      }
     } 
   }
 } 
@@ -73,14 +67,28 @@
 
 // SIDEBAR NAVIGATION STATES
 
+// Active Link Category
+.nav--sidebar {
+  .nav__link-item {
+    &.active {
+      .nav__link {
+        color: $gray-80;
+      }
+      .nav__link-sections {
+        display: block; 
+      }
+    }
+  }
+}
+
 // Active Link Section
 .nav--sidebar {
-  .nav__link-item--active {
-    .nav__link {
-      color: $gray-80;
-    }
-    .nav__link-sections {
-      display: block; 
+  .nav__link-section-item {
+    &.active {
+      border-color: purple;
+      .nav__link-section {
+        color: purple;
+      }
     }
   }
 }
