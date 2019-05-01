@@ -2,7 +2,7 @@
 // VARIABLES
 
   const xhr = new XMLHttpRequest(),
-        baseUrl = '../../schema.json',
+        baseUrl = 'schema.json',
         sidebarNavLinks = document.getElementById('sidebarNavLinks'),
         mainTitle = document.getElementById('mainTitle'),
         mainContent = document.getElementById('mainContent');
@@ -78,7 +78,7 @@
       
       flatNav += `
         <li class="nav__link-section-item">
-          <a href="#${profileField.id}" class="nav__link-section" >${displayName}</a>
+          <a href="#${profileField.id}" class="nav__link-section scrollsection" >${displayName}</a>
         </li>`;
     }
     return flatNav;
@@ -156,7 +156,7 @@
           displayName = addReadableNames(profileField.name);
       
       mainContentSections += `
-      <section class="section section--main">
+      <section id="${profileField.id}" class="section section--main">
         <div class="section__header">
           <h3 class="section__title">${displayName}</h3>
         </div>
@@ -195,7 +195,7 @@
               displayName = addReadableNames(profileSubField.name);
           
           mainContentSections += `
-          <section class="section section--main">
+          <section id="${profileSubField.id}" class="section section--main">
             <div class="section__header">
               <h3 class="section__title">${displayName}</h3>
             </div>

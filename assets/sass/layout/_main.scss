@@ -8,8 +8,12 @@
 
 .main { 
   background: $gray-5;
-  min-height: 100vh;
   grid-area: main;
+  //min-height: 100vh;
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  
   &__container {
     display: flex;
     flex-direction: column;
@@ -23,5 +27,8 @@
     font-weight: 500;
     margin: .5rem 0 .75rem;
     text-transform: capitalize;
+  }
+  &__content {
+    
   }
 }
