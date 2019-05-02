@@ -1,4 +1,5 @@
 import React from 'react';
+import SidebarNav from './SidebarNav'
 
 const Sidebar = props => (
   <aside className="sidebar">
@@ -8,8 +9,7 @@ const Sidebar = props => (
       </header>
       <nav className="nav nav--sidebar">
         <h2 className="nav__title">Field Groups</h2>
-        <ul id="sidebarNavLinks" className="nav__links">
-        </ul>
+        <SidebarNav /> 
       </nav>
     </div>
   </aside>

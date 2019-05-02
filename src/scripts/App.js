@@ -7,7 +7,7 @@ class App extends React.Component {
   render(){
     return (
       <div className="body__container">
-        <Main />
+        <Main title="Main Title"/>
         <Sidebar />  
       </div>
     );
