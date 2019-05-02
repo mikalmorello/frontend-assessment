@@ -1,11 +1,17 @@
 import React from 'react';
+import Main from './components/Main'
+import Sidebar from './components/Sidebar'
+    
+class App extends React.Component {
 
-const App = () => {
-  return (
-    <div>
-      Your app goes here 
-    </div>
-  );
-};
+  render(){
+    return (
+      <div className="body__container">
+        <Main />
+        <Sidebar />  
+      </div>
+    );
+  }
+}
 
 export default App;
