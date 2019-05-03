@@ -7,15 +7,32 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      open: false
+      open: false,
+      freeBookmark: true,
+      data: [],
+      loading: false
     }
-    this.toggleOpenClosed = this.toggleOpenClosed.bind(this)
+    this.toggleOpenClosed = this.toggleOpenClosed.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
   } 
   
   /*toggleOpenClosed = () => {
-    this.setState({
-      open: !this.state.open
-  })*/
+    this.setState(prevState => ({
+      open: !prevState.open
+    }))
+  }*/
+  
+  componentDidMount(){
+    console.log("the component is now mounted");
+    this.setState({loading: true})
+    fetch('./schema.json') 
+      .then(data => data.json())
+      .then(data => this.setState({data, loading: false}))
+  }
+  
+  componentDidUpdate(){
+    console.log("the component just updated");
+  }
 
   toggleOpenClosed(){
     this.setState({
@@ -27,7 +44,7 @@ class App extends React.Component {
     console.log(this.state)
     return (
       <div className="body__container"> 
-        <Main title="Main Title" mainState={this.state.open ? 'open' : 'closed' }/>
+        <Main title="Main Title" mainState={this.state.open ? 'open' : 'closed' } freeBookMark={this.state.freeBookMark}/>
         <Sidebar />
         <button onClick={this.toggleOpenClosed}>Toggle State</button>
       </div>
