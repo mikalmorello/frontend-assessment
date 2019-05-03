@@ -10,24 +10,19 @@ class App extends React.Component {
       open: false,
       freeBookmark: true,
       data: [],
-      loading: false
+      loading: false,
     }
     this.toggleOpenClosed = this.toggleOpenClosed.bind(this);
-    this.componentDidMount = this.componentDidMount.bind(this);
+    //this.componentDidMount = this.componentDidMount.bind(this);
   } 
-  
-  /*toggleOpenClosed = () => {
-    this.setState(prevState => ({
-      open: !prevState.open
-    }))
-  }*/
   
   componentDidMount(){
     console.log("the component is now mounted");
+    
     this.setState({loading: true})
     fetch('./schema.json') 
       .then(data => data.json())
-      .then(data => this.setState({data, loading: false}))
+      .then(data => this.setState({data, loading: false})) 
   }
   
   componentDidUpdate(){
@@ -39,14 +34,29 @@ class App extends React.Component {
       open: !this.state.open
     })
   }
+  
+  
 
   render(){
-    console.log(this.state)
+    console.log(this.state);
+    console.log(this.state.data);
     return (
       <div className="body__container"> 
         <Main title="Main Title" mainState={this.state.open ? 'open' : 'closed' } freeBookMark={this.state.freeBookMark}/>
         <Sidebar />
         <button onClick={this.toggleOpenClosed}>Toggle State</button>
+        {this.state.loading 
+          ? 'loading...'
+          : <div>
+              {this.state.data.map(field => {
+                return (
+                <div>
+                  <h4>{field.name}</h4>
+                </div>
+               )
+              })}
+            </div>
+        }
       </div>
     );
   }
