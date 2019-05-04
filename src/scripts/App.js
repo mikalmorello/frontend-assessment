@@ -7,12 +7,14 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      open: false,
-      freeBookmark: true,
       data: [],
       loading: false,
+      categoryNested: [],
+      categoryFlat:[],
+      activeCategory: 'general',
+      activeField: undefined
     }
-    this.toggleOpenClosed = this.toggleOpenClosed.bind(this);
+    //this.toggleOpenClosed = this.toggleOpenClosed.bind(this);
     //this.componentDidMount = this.componentDidMount.bind(this);
   } 
   
@@ -29,34 +31,31 @@ class App extends React.Component {
     console.log("the component just updated");
   }
 
-  toggleOpenClosed(){
+  /*toggleOpenClosed(){
     this.setState({
       open: !this.state.open
     })
-  }
-  
-  
+  }*/
 
   render(){
-    console.log(this.state);
+    
     console.log(this.state.data);
+    
+    {this.state.data.map(field => {
+      if (field.containing_object || field.properties) {
+        this.state.categoryNested.push(field);
+      } else {
+          this.state.categoryFlat.push(field);
+      }
+    })};
+                         
+    console.log(this.state.categoryFlat);
+    console.log(this.state.categoryNested);
+    
     return (
       <div className="body__container"> 
-        <Main title="Main Title" mainState={this.state.open ? 'open' : 'closed' } freeBookMark={this.state.freeBookMark}/>
-        <Sidebar />
-        <button onClick={this.toggleOpenClosed}>Toggle State</button>
-        {this.state.loading 
-          ? 'loading...'
-          : <div>
-              {this.state.data.map(field => {
-                return (
-                <div>
-                  <h4>{field.name}</h4>
-                </div>
-               )
-              })}
-            </div>
-        }
+        <Main title="Main Title" data={this.state.data} />
+        <Sidebar categoryFlat={this.state.categoryFlat} categoryNested={this.state.categoryNested} activeCategory={this.state.activeCategory} />
       </div>
     );
   }

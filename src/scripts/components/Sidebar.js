@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import SidebarNav from './SidebarNav'
 
 const Sidebar = props => (
@@ -9,7 +9,7 @@ const Sidebar = props => (
       </header>
       <nav className="nav nav--sidebar">
         <h2 className="nav__title">Field Groups</h2>
-        <SidebarNav /> 
+        <SidebarNav categoryFlat={props.categoryFlat} categoryNested={props.categoryNested} activeCategory={props.activeCategory}/>
       </nav>
     </div>
   </aside>
