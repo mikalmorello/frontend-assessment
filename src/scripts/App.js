@@ -16,6 +16,7 @@ class App extends React.Component {
     }
     //this.toggleOpenClosed = this.toggleOpenClosed.bind(this);
     //this.componentDidMount = this.componentDidMount.bind(this);
+    this.setActiveCategory = this.setActiveCategory.bind(this);
   } 
   
   componentDidMount(){
@@ -36,6 +37,12 @@ class App extends React.Component {
       open: !this.state.open
     })
   }*/
+  
+  setActiveCategory(){
+    this.setState({
+      activeCategory: 'tacos'
+    })
+  }
 
   render(){
     
@@ -54,8 +61,17 @@ class App extends React.Component {
     
     return (
       <div className="body__container"> 
-        <Main title="Main Title" data={this.state.data} />
-        <Sidebar categoryFlat={this.state.categoryFlat} categoryNested={this.state.categoryNested} activeCategory={this.state.activeCategory} />
+        <Main 
+          data={this.state.data} 
+          categoryFlat={this.state.categoryFlat} 
+          categoryNested={this.state.categoryNested} 
+          activeCategory={this.state.activeCategory} 
+        />
+        <Sidebar 
+          categoryFlat={this.state.categoryFlat} 
+          categoryNested={this.state.categoryNested} 
+          activeCategory={this.state.activeCategory} 
+        />
       </div>
     );
   }
