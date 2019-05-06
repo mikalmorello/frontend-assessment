@@ -6,7 +6,6 @@ class NestedNav extends React.Component {
     
     return (
       <>
-        {this.props.activeCategory}
         {this.props.categoryNested.map(field => {
           return (
             <li key={field.id} className="nav__link-item">

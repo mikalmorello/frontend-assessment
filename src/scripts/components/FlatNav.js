@@ -13,8 +13,6 @@ class FlatNav extends React.Component {
     
     return (
       <li className={`nav__link-item`}>
-        {this.props.activeCategory}
-
         <a href="#mainTitle" id="general" className="nav__link">general Info</a>
         <ul className="nav__link-sections">
           {this.props.categoryFlat.map(field => {
