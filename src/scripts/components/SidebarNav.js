@@ -8,8 +8,16 @@ class SidebarNav extends React.Component {
     
     return (
       <ul id="sidebarNavLinks" className="nav__links">
-        <FlatNav categoryFlat={this.props.categoryFlat} activeCategory={this.props.activeCategory} />
-        <NestedNav categoryNested={this.props.categoryNested} activeCategory={this.props.activeCategory} />
+        <FlatNav 
+          categoryFlat={this.props.categoryFlat} 
+          activeCategory={this.props.activeCategory} 
+          setActiveCategory={this.setActiveCategory}
+        />
+        <NestedNav 
+          categoryNested={this.props.categoryNested} 
+          activeCategory={this.props.activeCategory} 
+          setActiveCategory={this.props.setActiveCategory}
+        />
       </ul>
     )
   }

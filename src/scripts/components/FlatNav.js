@@ -3,17 +3,18 @@ import React from 'react';
 
 
 class FlatNav extends React.Component {
-  render(){
-    
-    function checkLink(activeCategory){
-      if (activeCategory === 'general') {
-        return 'nav__link-item--active';
-      } 
+  
+  checkLink(activeCategory){
+    if (activeCategory === 'general') {
+      return 'nav__link-item--active';
     }
-    
+  }
+  
+  render(){
     return (
-      <li className={`nav__link-item`}>
-        <a href="#mainTitle" id="general" className="nav__link">general Info</a>
+      
+      <li className={`nav__link-item ${this.checkLink(this.props.activeCategory)}`}>
+        <a href="#mainTitle" id="general" className="nav__link">general Info - {this.props.activeCategory} - </a>
         <ul className="nav__link-sections">
           {this.props.categoryFlat.map(field => {
             return (

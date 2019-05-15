@@ -12,7 +12,12 @@ class Sidebar extends React.Component {
           </header>
           <nav className="nav nav--sidebar">
             <h2 className="nav__title">Field Groups</h2>
-            <SidebarNav categoryFlat={this.props.categoryFlat} categoryNested={this.props.categoryNested} activeCategory={this.props.activeCategory}/>
+            <SidebarNav 
+              categoryFlat={this.props.categoryFlat} 
+              categoryNested={this.props.categoryNested} 
+              activeCategory={this.props.activeCategory}
+              setActiveCategory={this.props.setActiveCategory}
+            />
           </nav>
         </div>
       </aside>

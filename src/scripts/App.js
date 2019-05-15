@@ -11,7 +11,7 @@ class App extends React.Component {
       loading: false,
       categoryNested: [],
       categoryFlat:[],
-      activeCategory: 'general',
+      activeCategory: 'employments',
       activeField: undefined
     }
     //this.toggleOpenClosed = this.toggleOpenClosed.bind(this);
@@ -42,6 +42,7 @@ class App extends React.Component {
     this.setState({
       activeCategory: 'tacos'
     })
+    console.log('yikes')
   }
 
   render(){
@@ -61,6 +62,7 @@ class App extends React.Component {
     
     return (
       <div className="body__container"> 
+        <button onClick={this.setActiveCategory}>button</button>
         <Main 
           data={this.state.data} 
           categoryFlat={this.state.categoryFlat} 
@@ -71,7 +73,9 @@ class App extends React.Component {
           categoryFlat={this.state.categoryFlat} 
           categoryNested={this.state.categoryNested} 
           activeCategory={this.state.activeCategory} 
+          setActiveCategory={this.setActiveCategory}
         />
+        
       </div>
     );
   }
