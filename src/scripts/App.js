@@ -14,52 +14,50 @@ class App extends React.Component {
       activeCategory: 'general',
       activeField: undefined
     }
-    //this.toggleOpenClosed = this.toggleOpenClosed.bind(this);
-    //this.componentDidMount = this.componentDidMount.bind(this);
     this.setActiveCategory = this.setActiveCategory.bind(this);
   } 
   
   componentDidMount(){
-    console.log("the component is now mounted");
+    //console.log("the component is now mounted");
     
     this.setState({loading: true})
     fetch('./schema.json') 
       .then(data => data.json())
-      .then(data => this.setState({data, loading: false})) 
+      .then(data => {
+        data.map(field => {
+          if (field.containing_object || field.properties) {
+            this.state.categoryNested.push(field);
+          } else {
+            this.state.categoryFlat.push(field);
+          }
+        })
+        console.log(this.state.categoryNested);
+      })
+      .then(data => this.setState({data, loading: false}))
+
   }
   
   componentDidUpdate(){
-    console.log("the component just updated");
+    //console.log("the component just updated");
   }
-
-  /*toggleOpenClosed(){
-    this.setState({
-      open: !this.state.open
-    })
-  }*/
   
   setActiveCategory(newCategory){
     this.setState({
       activeCategory: newCategory
     })
-    console.log(newCategory)
   }
-
-  render(){
-    
-    console.log(this.state.data);
-    
-    {this.state.data.map(field => {
+  
+  buildSidebarMenu(data) {
+    data.map(field => {
       if (field.containing_object || field.properties) {
         this.state.categoryNested.push(field);
       } else {
-          this.state.categoryFlat.push(field);
+        this.state.categoryFlat.push(field);
       }
-    })};
-                         
-    console.log(this.state.categoryFlat);
-    console.log(this.state.categoryNested);
-    
+    })
+  }
+
+  render(){
     return (
       <div className="body__container"> 
 
