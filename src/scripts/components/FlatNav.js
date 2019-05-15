@@ -6,7 +6,9 @@ class FlatNav extends React.Component {
   
   checkLink(activeCategory){
     if (activeCategory === 'general') {
-      return 'nav__link-item--active';
+      return 'active';
+    } else {
+      return '';
     }
   }
   
@@ -14,7 +16,7 @@ class FlatNav extends React.Component {
     return (
       
       <li className={`nav__link-item ${this.checkLink(this.props.activeCategory)}`}>
-        <a href="#mainTitle" id="general" className="nav__link">general Info - {this.props.activeCategory} - </a>
+        <a id="general" className="nav__link" onClick={(e)=>this.props.setActiveCategory('general')} >general Info</a>
         <ul className="nav__link-sections">
           {this.props.categoryFlat.map(field => {
             return (

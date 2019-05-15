@@ -5,9 +5,9 @@ class NestedNav extends React.Component {
   
   checkLink(activeCategory, categoryName){
     if (activeCategory === categoryName) {
-      return 'nav__link-item--active';
+      return 'active';
     } else {
-      return 'nada'
+      return ''
     }
   }
   
@@ -17,8 +17,7 @@ class NestedNav extends React.Component {
         {this.props.categoryNested.map(field => {
           return (
             <li key={field.id} className={`nav__link-item ${this.checkLink(this.props.activeCategory, field.name )}`} >
-              <button onClick={this.props.setActiveCategory}>button</button>
-              <a href="#{field.id}" id={field.name} className="nav__link" onClick={this.props.setActiveCategory} >{field.name} -{this.props.activeCategory}- </a>
+              <a id={field.name} className="nav__link" onClick={(e)=>this.props.setActiveCategory(field.name)} >{field.name}</a>
               <NestedSubnav fieldId="5678" displayName="Display Name"/> 
             </li> 
           )
