@@ -22,11 +22,39 @@ class Main extends React.Component {
       })
     } else {
       return categoryNested.map(field => {
-        return (
-          <section key={field.id}>
-            {field.name}
-          </section>
-        )
+        if (activeCategory === field.name) {
+          if(field.containing_object){
+            return field.containing_object.properties.map(subfield => {
+              return (
+                <section key={subfield.id} className="section section--main">
+                  <div className="section__header">
+                    <h3 className="section__title">{subfield.name}</h3>
+                  </div>
+                  <ul className="section__data-list">
+                    <SectionProperty propertyDescription={subfield.data_type}  fieldName="Type" />
+                    <SectionProperty propertyDescription={subfield.app_keys}  fieldName="Usage" />
+                    <SectionProperty propertyDescription={subfield.name} fieldName="Evertrue Field Name" />
+                  </ul>
+                </section>
+              )
+            })
+          } else {
+            return field.properties.map(subfield => {
+              return (
+                <section key={subfield.id} className="section section--main">
+                  <div className="section__header">
+                    <h3 className="section__title">{subfield.name}</h3>
+                  </div>
+                  <ul className="section__data-list">
+                    <SectionProperty propertyDescription={subfield.data_type}  fieldName="Type" />
+                    <SectionProperty propertyDescription={subfield.app_keys}  fieldName="Usage" />
+                    <SectionProperty propertyDescription={subfield.name} fieldName="Evertrue Field Name" />
+                  </ul>
+                </section>
+              )
+            })
+          }
+        }
       })
                               
     }
@@ -34,7 +62,6 @@ class Main extends React.Component {
   
   
   render(){
-    console.log(this.props.data);
     return (
       <main id="main" className="main">
         <div className="main__container">
