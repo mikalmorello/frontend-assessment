@@ -16,7 +16,9 @@ class Sidebar extends React.Component {
               categoryFlat={this.props.categoryFlat} 
               categoryNested={this.props.categoryNested} 
               activeCategory={this.props.activeCategory}
+              activeField={this.props.activeField}
               setActiveCategory={this.props.setActiveCategory}
+              setActiveField={this.props.setActiveField}
             />
           </nav>
         </div>

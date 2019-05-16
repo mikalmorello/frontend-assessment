@@ -15,6 +15,7 @@ class App extends React.Component {
       activeField: undefined
     }
     this.setActiveCategory = this.setActiveCategory.bind(this);
+    this.setActiveField = this.setActiveField.bind(this);
   } 
   
   componentDidMount(){
@@ -35,6 +36,12 @@ class App extends React.Component {
     })
   }
   
+  setActiveField(newField){
+    this.setState({
+      activeField: newField
+    })
+  }
+  
   buildSidebarMenu(data, categoryNested) {
     if (categoryNested === undefined || categoryNested.length == 0) {
       data.map(field => {
@@ -50,6 +57,7 @@ class App extends React.Component {
 
   render(){
     //console.log(this.state.data);
+    console.log(this.state.activeField);
     this.buildSidebarMenu(this.state.data, this.state.categoryNested);
     
     return (
@@ -65,7 +73,9 @@ class App extends React.Component {
           categoryFlat={this.state.categoryFlat} 
           categoryNested={this.state.categoryNested} 
           activeCategory={this.state.activeCategory} 
+          activeField={this.state.activeField} 
           setActiveCategory={this.setActiveCategory}
+          setActiveField={this.setActiveField}
         />
         
       </div>
