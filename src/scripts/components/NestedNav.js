@@ -18,7 +18,7 @@ class NestedNav extends React.Component {
           return (
             <li key={field.id} className={`nav__link-item ${this.checkLink(this.props.activeCategory, field.name )}`} >
               <a id={field.name} className="nav__link" onClick={(e)=>this.props.setActiveCategory(field.name)} >{field.name}</a>
-              <NestedSubnav fieldId="5678" displayName="Display Name"/> 
+              <NestedSubnav fieldId={field.name} displayName="Display Name"/> 
             </li> 
           )
         })}

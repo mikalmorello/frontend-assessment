@@ -3,7 +3,7 @@ import React from 'react';
 const NestedSubnav = props => (
   <ul className="nav__link-sections">
     <li className="nav__link-section-item">
-      <a href="#{props.fieldId}" className="nav__link-section">{props.displayName}</a>
+      <a href="#{props.fieldId}" className="nav__link-section">{props.displayName} {props.fieldId}</a>
     </li>
     <li className="nav__link-section-item">
       <a href="#{props.fieldId}" className="nav__link-section">{props.displayName}</a>

@@ -8,7 +8,7 @@ class App extends React.Component {
     super(props)
     this.state = {
       data: [],
-      loading: false,
+      loading: 'loaded',
       categoryNested: [],
       categoryFlat:[],
       activeCategory: 'general',
@@ -19,22 +19,10 @@ class App extends React.Component {
   
   componentDidMount(){
     //console.log("the component is now mounted");
-    
     this.setState({loading: true})
     fetch('./schema.json') 
       .then(data => data.json())
-      .then(data => {
-        data.map(field => {
-          if (field.containing_object || field.properties) {
-            this.state.categoryNested.push(field);
-          } else {
-            this.state.categoryFlat.push(field);
-          }
-        })
-        console.log(this.state.categoryNested);
-      })
       .then(data => this.setState({data, loading: false}))
-
   }
   
   componentDidUpdate(){
@@ -47,17 +35,23 @@ class App extends React.Component {
     })
   }
   
-  buildSidebarMenu(data) {
-    data.map(field => {
-      if (field.containing_object || field.properties) {
-        this.state.categoryNested.push(field);
-      } else {
-        this.state.categoryFlat.push(field);
-      }
-    })
+  buildSidebarMenu(data, categoryNested) {
+    if (categoryNested === undefined || categoryNested.length == 0) {
+      data.map(field => {
+        if (field.containing_object || field.properties) {
+          this.state.categoryNested.push(field);
+        } else {
+          this.state.categoryFlat.push(field);
+        }
+      })
+    }
   }
 
+
   render(){
+    //console.log(this.state.data);
+    this.buildSidebarMenu(this.state.data, this.state.categoryNested);
+    
     return (
       <div className="body__container"> 
 
