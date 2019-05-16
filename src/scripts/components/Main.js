@@ -4,7 +4,7 @@ import SectionProperty from './SectionProperty';
 
 class Main extends React.Component {
   
-  checkLink(activeCategory, categoryFlat, categoryNested){
+  buildMainContent(activeCategory, categoryFlat, categoryNested){
     if (activeCategory === 'general') {
       return categoryFlat.map(field => {
         return (
@@ -69,7 +69,7 @@ class Main extends React.Component {
             <h2 id="mainTitle" className="main__title">{this.props.activeCategory}</h2>
           </header>
           <div id="mainContent" className="main__content">
-            {this.checkLink(this.props.activeCategory, this.props.categoryFlat, this.props.categoryNested)}
+            {this.buildMainContent(this.props.activeCategory, this.props.categoryFlat, this.props.categoryNested)}
           </div>
         </div>
 
