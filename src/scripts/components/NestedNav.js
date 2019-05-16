@@ -16,7 +16,7 @@ class NestedNav extends React.Component {
       return field.containing_object.properties.map(subfield => {
         return (
           <li key={subfield.id}  className={`nav__link-section-item ${this.checkLink(activeField, subfield.name )}`}>
-            <a className="nav__link-section" onClick={(e)=>setActiveField(subfield.name)}>{subfield.name}</a>
+            <a href={`#${subfield.id}`} className="nav__link-section" onClick={(e)=>setActiveField(subfield.name)}>{subfield.name}</a>
           </li>
         )
       })
@@ -24,7 +24,7 @@ class NestedNav extends React.Component {
       return field.properties.map(subfield => {
         return (
           <li key={subfield.id}  className={`nav__link-section-item ${this.checkLink(activeField, subfield.name )}`}>
-            <a className="nav__link-section" onClick={(e)=>setActiveField(subfield.name)}>{subfield.name}</a>
+            <a href={`#${subfield.id}`} className="nav__link-section" onClick={(e)=>setActiveField(subfield.name)}>{subfield.name}</a>
           </li>
         )
       })
@@ -35,7 +35,7 @@ class NestedNav extends React.Component {
     return categoryNested.map(field => {
       return (
         <li key={field.id} className={`nav__link-item ${this.checkLink(activeCategory, field.name )}`} >
-          <a id={field.name} className="nav__link" onClick={(e)=>setActiveCategory(field.name)} >{field.name}</a>
+          <a href="#mainTitle" id={field.name} className="nav__link" onClick={(e)=>setActiveCategory(field.name)} >{field.name}</a>
           <ul className="nav__link-sections">
             {this.buildSidebarSubNav(field, activeField, setActiveField)}
           </ul>

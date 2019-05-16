@@ -59,6 +59,7 @@ class App extends React.Component {
     //console.log(this.state.data);
     console.log(this.state.activeField);
     this.buildSidebarMenu(this.state.data, this.state.categoryNested);
+    console.log(React.version);
     
     return (
       <div className="body__container"> 

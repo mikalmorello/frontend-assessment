@@ -8,7 +8,7 @@ class Main extends React.Component {
     if (activeCategory === 'general') {
       return categoryFlat.map(field => {
         return (
-          <section key={field.id} className="section section--main">
+          <section key={field.id} id={field.id} className="section section--main">
             <div className="section__header">
               <h3 className="section__title">{field.name}</h3>
             </div>
@@ -26,7 +26,7 @@ class Main extends React.Component {
           if(field.containing_object){
             return field.containing_object.properties.map(subfield => {
               return (
-                <section key={subfield.id} className="section section--main">
+                <section key={subfield.id} id={subfield.id} className="section section--main">
                   <div className="section__header">
                     <h3 className="section__title">{subfield.name}</h3>
                   </div>
@@ -41,7 +41,7 @@ class Main extends React.Component {
           } else {
             return field.properties.map(subfield => {
               return (
-                <section key={subfield.id} className="section section--main">
+                <section key={subfield.id} id={subfield.id} className="section section--main">
                   <div className="section__header">
                     <h3 className="section__title">{subfield.name}</h3>
                   </div>
