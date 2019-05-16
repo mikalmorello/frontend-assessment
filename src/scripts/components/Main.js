@@ -13,9 +13,9 @@ class Main extends React.Component {
               <h3 className="section__title">{field.name}</h3>
             </div>
             <ul className="section__data-list">
-              <SectionProperty propertyDescription={field.data_type}  fieldName="Type" />
-              <SectionProperty propertyDescription={field.app_keys}  fieldName="Usage" />
-              <SectionProperty propertyDescription={field.name} fieldName="Evertrue Field Name" />
+              <SectionProperty propertyType="data-type" propertyDescription={field.data_type}  fieldName="Type" />
+              <SectionProperty propertyType="app-keys" propertyDescription={field.app_keys}  fieldName="Usage" />
+              <SectionProperty propertyType="name" propertyDescription={field.name} fieldName="Evertrue Field Name" />
             </ul>
           </section>
         )
